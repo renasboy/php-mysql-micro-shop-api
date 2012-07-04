@@ -1,0 +1,67 @@
+-- simple category table, seo is the permalink
+CREATE TABLE category (
+id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+created DATETIME NOT NULL DEFAULT 0,
+modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+seo VARCHAR(80) NOT NULL DEFAULT '',
+name VARCHAR(80) NOT NULL DEFAULT '',
+img VARCHAR(150) NOT NULL DEFAULT '',
+active TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+PRIMARY KEY (id),
+KEY created1 (created),
+KEY modified1 (modified),
+UNIQUE seo1 (seo),
+KEY seo2 (seo(8)),
+KEY name1 (name(8)),
+KEY active1 (active)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE UTF8_UNICODE_CI;
+
+-- simple product table, seo is the permalink, sku is also unique
+CREATE TABLE product (
+id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+category_id INT UNSIGNED NOT NULL,
+created DATETIME NOT NULL DEFAULT 0,
+modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+sku VARCHAR(80) NOT NULL DEFAULT '',
+seo VARCHAR(80) NOT NULL DEFAULT '',
+name VARCHAR(80) NOT NULL DEFAULT '',
+img VARCHAR(150) NOT NULL DEFAULT '',
+price FLOAT(7,2) NOT NULL DEFAULT 0.00,
+active TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+PRIMARY KEY (id),
+KEY category1 (category_id),
+FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE,
+KEY created1 (created),
+KEY modified1 (modified),
+UNIQUE sku1 (sku),
+UNIQUE seo1 (seo),
+KEY seo2 (seo(8)),
+KEY name1 (name(8)),
+KEY active1 (active)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE UTF8_UNICODE_CI;
+
+-- simple order table has almost no data, not keeping total
+CREATE TABLE shop (
+id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+created DATETIME NOT NULL DEFAULT 0,
+modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+payment ENUM('credit card', 'debit card', 'automatic debit', 'transference'),
+status ENUM('pre', 'ordered', 'paid', 'delivered', 'returned'),
+email VARCHAR(255) NOT NULL DEFAULT '',
+name VARCHAR(80) NOT NULL DEFAULT '',
+address VARCHAR(250) NOT NULL DEFAULT '',
+PRIMARY KEY (id),
+KEY created1 (created),
+KEY modified1 (modified)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE UTF8_UNICODE_CI;
+
+-- simple n_n relationship for products in the basket, not keeping product data
+-- in case a product is deleted
+CREATE TABLE product_shop (
+product_id INT UNSIGNED NOT NULL,
+shop_id INT UNSIGNED NOT NULL,
+quantity INT UNSIGNED NOT NULL DEFAULT 0,
+PRIMARY KEY (product_id, shop_id),
+FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE,
+FOREIGN KEY (shop_id) REFERENCES shop (id) ON DELETE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COLLATE UTF8_UNICODE_CI;
