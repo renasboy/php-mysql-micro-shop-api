@@ -16,7 +16,7 @@ vim etc/api.dev.ini
 ln -sf api.dev.ini etc/api.ini
 ./bin/make
 #
-# now point apache doc_root to the pub and enable .htaccess file
+# now point apache doc_root to the shop-api/pub and enable .htaccess file
 #
 
 --
@@ -48,6 +48,6 @@ ln -sf api.dev.ini etc/api.ini
     
     $ ./bin/make
 
-6. you are done !!
+7. you are done !!
 
-    Point apache document root to the pub directory and enable .htaccess
+    Point apache document root to the shop-api/pub directory and enable .htaccess
