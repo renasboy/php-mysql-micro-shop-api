@@ -16,6 +16,7 @@ vim etc/api.dev.ini
 ln -sf api.dev.ini etc/api.ini
 ln -sf ../api/lib .
 ./bin/make
+./bin/db
 #
 # now point apache doc_root to the shop-api/pub and enable .htaccess file
 #
@@ -53,6 +54,10 @@ ln -sf ../api/lib .
     
     $ ./bin/make
 
-8. you are done !!
+8. install the database structure, schema found inside data/ directory.
+
+    $ ./bin/db
+
+9. you are done !!
 
     Point apache document root to the shop-api/pub directory and enable .htaccess
