@@ -14,6 +14,7 @@ vim etc/api.dev.ini
 # db conf is mainly host, user and pass
 #
 ln -sf api.dev.ini etc/api.ini
+ln -sf ../api/lib .
 ./bin/make
 #
 # now point apache doc_root to the shop-api/pub and enable .htaccess file
@@ -44,10 +45,14 @@ ln -sf api.dev.ini etc/api.ini
 
     $ ln -sf api.dev.ini etc/api.ini
 
-6. execute bin/make in the shop-api
+6. make the link to the framework api in use
+
+    $ ln -sf ../api/lib .
+
+7. execute bin/make in the shop-api
     
     $ ./bin/make
 
-7. you are done !!
+8. you are done !!
 
     Point apache document root to the shop-api/pub directory and enable .htaccess
